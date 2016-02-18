@@ -8,6 +8,24 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by sergei on 18.2.2016.
  */
 public class DBOpenHelper extends SQLiteOpenHelper {
+    //Constants for db name and version
+    private static final String DATABASE_NAME = "notes.db";
+    private static final int DATABASE_VERSION = 1;
+
+    //Constants for identifying table and columns
+    public static final String TABLE_NOTES = "notes";
+    public static final String NOTE_ID = "_id";
+    public static final String NOTE_TEXT = "noteText";
+    public static final String NOTE_CREATED = "noteCreated";
+
+    //SQL to create table
+    private static final String TABLE_CREATE =
+            "CREATE TABLE " + TABLE_NOTES + " (" +
+                    NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    NOTE_TEXT + " TEXT, " +
+                    NOTE_CREATED + " TEXT default CURRENT_TIMESTAMP" +
+                    ")";
+
     public DBOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
