@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
  * Created by sergei on 18.2.2016.
  */
 public class NotesProvider extends ContentProvider {
-    private static final String AUTHORITY = "com.example.plainolnotes.notesprovider";
+    private static final String AUTHORITY = "com.example.sergei.quicknote.notesprovider";
     private static final String BASE_PATH = "notes";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH );
 
