@@ -2,6 +2,7 @@ package com.example.sergei.quicknote;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -17,6 +18,13 @@ public class NotesProvider extends ContentProvider {
     // Constant to identify the requested operation
     private static final int NOTES = 1;
     private static final int NOTES_ID = 2;
+
+    private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+    static {
+        uriMatcher.addURI(AUTHORITY, BASE_PATH, NOTES);
+        uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", NOTES_ID);
+    }
 
     @Override
     public boolean onCreate() {
