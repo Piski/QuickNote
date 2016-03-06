@@ -18,10 +18,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
-            android:authorities="com.example.sergei.quicknote.notesprovider"
             android:name=".NotesProvider"
+            android:authorities="com.example.sergei.quicknote.notesprovider"
             android:exported="false" />
+
+        <activity
+            android:name=".EditorActivity"
+            android:label="@string/title_activity_editor"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.sergei.quicknote.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
