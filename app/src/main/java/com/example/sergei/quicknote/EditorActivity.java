@@ -34,12 +34,10 @@ public class EditorActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Uri uri = intent.getParcelableExtra(NotesProvider.CONTENT_ITEM_TYPE);
         if(uri == null) {
-            Log.d("uri == null", "log");
             action = Intent.ACTION_INSERT;
             setTitle(getString(R.string.new_note));
         } else {
-            // Set title
-            // setTitle(getString(R.string.new_note));
+            setTitle(getString(R.string.edit_note));
             action = Intent.ACTION_EDIT;
             noteFilter = DBOpenHelper.NOTE_ID + "=" + uri.getLastPathSegment();
 
