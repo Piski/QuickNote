@@ -2,7 +2,6 @@ package com.example.sergei.quicknote;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
-import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -24,6 +22,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private CursorAdapter cursorAdapter;
     private static final int EDITOR_REQUEST_CODE = 1001;
+    private static final int VIEWER_REQUEST_CODE = 1002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,44 +37,29 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                Intent intent = new Intent(MainActivity.this, ViewActivity.class);
                 Uri uri = Uri.parse(NotesProvider.CONTENT_URI + "/" + id);
                 intent.putExtra(NotesProvider.CONTENT_ITEM_TYPE, uri);
-                startActivityForResult(intent, EDITOR_REQUEST_CODE);
+                startActivityForResult(intent, VIEWER_REQUEST_CODE);
             }
         });
         getLoaderManager().initLoader(0, null, this);
     }
 
-    private void insertNote(String noteText) {
-        ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.NOTE_TEXT, noteText);
-        getContentResolver().insert(NotesProvider.CONTENT_URI, values);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch(id) {
-            //case R.id.action_create_sample:
-            //    insertSampleData();
-            //    break;
             case R.id.action_delete_all:
                 deleteAllNotes();
                 break;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -87,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         if (button == DialogInterface.BUTTON_POSITIVE) {
                             getContentResolver().delete(NotesProvider.CONTENT_URI, null, null);
                             restartLoader();
-                            //Insert Data management code here
                             Toast.makeText(MainActivity.this,
                                     getString(R.string.all_deleted),
                                     Toast.LENGTH_SHORT).show();
@@ -121,15 +104,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         cursorAdapter.swapCursor(null);
     }
 
-    public void openEditorForNewNote(View view) {
-        Intent intent = new Intent(this, EditorActivity.class);
-        startActivityForResult(intent, EDITOR_REQUEST_CODE);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == EDITOR_REQUEST_CODE && resultCode == RESULT_OK) {
+        if(requestCode == VIEWER_REQUEST_CODE && resultCode == RESULT_OK) {
+            restartLoader();
+        } else if(requestCode == EDITOR_REQUEST_CODE && resultCode == RESULT_OK) {
             restartLoader();
         }
+    }
+
+    public void openEditorForNewNote(View view) {
+        Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+        startActivityForResult(intent, EDITOR_REQUEST_CODE);
     }
 }

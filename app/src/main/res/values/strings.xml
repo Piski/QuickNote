@@ -11,4 +11,6 @@
     <string name="note_deleted">Note deleted</string>
     <string name="hint">Enter text here</string>
     <string name="edit_note">Edit note</string>
+    <string name="note_image">Note image</string>
+    <string name="title_activity_view">View</string>
 </resources>

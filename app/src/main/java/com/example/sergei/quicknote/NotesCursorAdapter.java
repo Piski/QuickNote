@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-/**
- * Created by sergei on 6.3.2016.
- */
 public class NotesCursorAdapter extends CursorAdapter {
     public NotesCursorAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
