@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivityForResult(intent, EDITOR_REQUEST_CODE);
             }
         });
-
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -68,9 +67,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch(id) {
-            case R.id.action_create_sample:
-                insertSampleData();
-                break;
+            //case R.id.action_create_sample:
+            //    insertSampleData();
+            //    break;
             case R.id.action_delete_all:
                 deleteAllNotes();
                 break;
@@ -101,13 +100,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 .setPositiveButton(getString(android.R.string.yes), dialogClickListener)
                 .setNegativeButton(getString(android.R.string.no), dialogClickListener)
                 .show();
-    }
-
-    private void insertSampleData() {
-        insertNote("simple note");
-        insertNote("longer\nnotes");
-        insertNote("very long note... very long note... very long note... very long note... very long note... very long note... very long note... ");
-        restartLoader();
     }
 
     private void restartLoader() {
