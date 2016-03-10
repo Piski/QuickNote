@@ -33,7 +33,7 @@ public class ViewActivity extends AppCompatActivity {
         if(uri == null) {
             finish();
         } else {
-            setTitle(getString(R.string.edit_note));
+            setTitle(getString(R.string.quicknote));
             action = Intent.ACTION_VIEW;
             noteFilter = DBOpenHelper.NOTE_ID + "=" + uri.getLastPathSegment();
 

@@ -13,4 +13,5 @@
     <string name="edit_note">Edit note</string>
     <string name="note_image">Note image</string>
     <string name="title_activity_view">View</string>
+    <string name="quicknote">QuickNote</string>
 </resources>
